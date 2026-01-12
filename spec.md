@@ -18,3 +18,4 @@ Added hypothesis DC
 
 ### #7 Experiment Results
 Experiment Results DC
+Added bar chart comparing survival time and projectile speed.
