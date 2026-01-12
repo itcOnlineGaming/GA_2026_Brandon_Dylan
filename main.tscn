@@ -15,4 +15,8 @@ wait_time = 5.0
 autostart = true
 script = ExtResource("3_h2yge")
 
+[node name="SurvivalTime" type="Label" parent="." groups=["SurvivalTime"]]
+offset_right = 288.0
+offset_bottom = 103.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
