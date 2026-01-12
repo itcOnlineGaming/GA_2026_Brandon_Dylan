@@ -9,5 +9,5 @@ func _process(delta: float) -> void:
 		get_parent().queue_free
 		game_over = true
 	
-	#if game_over == true:
-		#get_tree().reload_current_scene()
+	if game_over == true:
+		get_tree().reload_current_scene()
