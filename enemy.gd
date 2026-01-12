@@ -3,16 +3,12 @@ extends CharacterBody2D
 @onready var player = get_tree().get_first_node_in_group("Player")
 @onready var player_pos : Vector2 = player.position
 
-@export var speed : float = 1000.0
+@export var speed : float 
 var movement_vector : Vector2
 
 func _ready() -> void:
 	
-	var version : bool = bool(randi() % 2)
-	if version:
-		speed = 1000.0
-	else:
-		speed = 500.0
+	speed = get_parent().enemySpeed
 	
 	var side_value = bool(randi() % 2)
 	if side_value:
