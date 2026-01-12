@@ -12,3 +12,8 @@ Survival Timer added to main game, will be exported to csv when game ends
 
 ### #5 Results CSV
 Results CSV that has exported values from the game such as survival time and projectile speed.
+
+### #6 Hypothesis
+Added hypothesis DC
+
+### #7 Experiment Results
