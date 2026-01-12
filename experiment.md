@@ -15,6 +15,6 @@ The result was that on average, decreasing the projectile speed to 500 resulted 
 
 ![Barchart](images/barchart.png)
 
-![Linegraph](images/linegraph.png)
+![Histogram](images/histogram.png)
 
 Based on the data, we chose to use a speed of 500 for the game, as this feels more contingent on player skill, and has more varied data.
