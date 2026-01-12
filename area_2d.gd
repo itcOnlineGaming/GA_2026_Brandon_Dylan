@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	
 	if game_over == true:
 		get_tree().reload_current_scene()
-		var resultsString = "%s;%s;A\n" % [survivalTime.text, "0"]
+		var resultsString = "%s;%s\n" % [survivalTime.text, get_parent().speed]
 		write_line_to_file(resultsString)
 		  
 
