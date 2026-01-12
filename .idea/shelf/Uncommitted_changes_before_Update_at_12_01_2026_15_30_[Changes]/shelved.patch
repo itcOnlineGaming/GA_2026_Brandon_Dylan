@@ -1,0 +1,89 @@
+Index: results.csv.import
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/results.csv.import b/results.csv.import
+new file mode 100644
+--- /dev/null	(date 1768231782109)
++++ b/results.csv.import	(date 1768231782109)
+@@ -0,0 +1,15 @@
++[remap]
++
++importer="csv_translation"
++type="Translation"
++uid="uid://bih8dcoe5b1p6"
++valid=false
++
++[deps]
++
++source_file="res://results.csv"
++
++[params]
++
++compress=true
++delimiter=0
+Index: results.csv
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>sep=;\nSurvival Time;Projectile Speed;Version\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/results.csv b/results.csv
+--- a/results.csv	(revision 5cb5aeaf4d18cc379beaae7ba266f46839ed8ca1)
++++ b/results.csv	(date 1768231776881)
+@@ -1,3 +1,5 @@
+ sep=;
+ Survival Time;Projectile Speed;Version
+ 
++00:06:630;0;A
++00:11:424;1000.0
+Index: area_2d.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>extends Area2D\n\n@onready var player = get_tree().get_first_node_in_group(\"Player\")\n@onready var survivalTime = get_tree().get_first_node_in_group(\"SurvivalTime\")\n\n\nvar game_over : bool = false\n\nfunc _process(delta: float) -> void:\n\tif overlaps_body(player):\n\t\tget_parent().queue_free\n\t\tgame_over = true\n\t\n\tif game_over == true:\n\t\tget_tree().reload_current_scene()\n\t\tvar resultsString = \"%s;%s;A\\n\" % [survivalTime.text, \"0\"]\n\t\twrite_line_to_file(resultsString)\n\t\t  \n\nfunc write_line_to_file(content):\n\tvar file = FileAccess.open(\"res://results.csv\", FileAccess.READ_WRITE)\n\tfile.seek_end()\n\tfile.store_string(content)\n\tfile.close()\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/area_2d.gd b/area_2d.gd
+--- a/area_2d.gd	(revision 5cb5aeaf4d18cc379beaae7ba266f46839ed8ca1)
++++ b/area_2d.gd	(date 1768231776881)
+@@ -13,7 +13,7 @@
+ 	
+ 	if game_over == true:
+ 		get_tree().reload_current_scene()
+-		var resultsString = "%s;%s;A\n" % [survivalTime.text, "0"]
++		var resultsString = "%s;%s\n" % [survivalTime.text, get_parent().speed]
+ 		write_line_to_file(resultsString)
+ 		  
+ 
+Index: enemy.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>extends CharacterBody2D\n\n@onready var player = get_tree().get_first_node_in_group(\"Player\")\n@onready var player_pos : Vector2 = player.position\n\nvar speed : float = 1000.0\nvar movement_vector : Vector2\n\nfunc _ready() -> void:\n\tvar side_value = bool(randi() % 2)\n\tif side_value:\n\t\tvar left_right = bool(randi() % 2)\n\t\tif left_right:\n\t\t\tposition.x = 1600\n\t\telse:\n\t\t\tposition.x  = -100\n\t\tposition.y = randi_range(0, 1500)\n\telse:\n\t\tvar up_down = bool(randi() % 2)\n\t\tif up_down:\t\n\t\t\tposition.y = 1600\n\t\telse:\n\t\t\tposition.y  = -100\n\t\tposition.x = randi_range(0, 1500)\n\t\n\t\n\tmovement_vector = ((position - player_pos).normalized() * speed) * -1\n\tvelocity += movement_vector\n\nfunc _process(delta: float) -> void:\n\tmove_and_slide()\n\n\t\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/enemy.gd b/enemy.gd
+--- a/enemy.gd	(revision 5cb5aeaf4d18cc379beaae7ba266f46839ed8ca1)
++++ b/enemy.gd	(date 1768231776881)
+@@ -3,10 +3,17 @@
+ @onready var player = get_tree().get_first_node_in_group("Player")
+ @onready var player_pos : Vector2 = player.position
+ 
+-var speed : float = 1000.0
++@export var speed : float = 1000.0
+ var movement_vector : Vector2
+ 
+ func _ready() -> void:
++	
++	var version : bool = bool(randi() % 2)
++	if version:
++		speed = 1000.0
++	else:
++		speed = 500.0
++	
+ 	var side_value = bool(randi() % 2)
+ 	if side_value:
+ 		var left_right = bool(randi() % 2)
